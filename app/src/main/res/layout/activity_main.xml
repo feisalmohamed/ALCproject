@@ -151,7 +151,6 @@
         <TextView android:id="@+id/dialogue"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Click a button to start"
             android:gravity="center_horizontal"
             android:layout_marginTop="5dp"
             android:textSize="25sp"

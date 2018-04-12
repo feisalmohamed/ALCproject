@@ -12,28 +12,36 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-
+/**
+ * Declaring the variables
+ * assigning the buttons an array
+ */
 
     private Button[][] buttons = new Button[3][3];
-
-    public boolean player1Turn = true;
-
-    public int numbOfRounds;
+    private Button reset;
+    private Button gameHelp;
 
     private int player1Points;
     private int player2Points;
-    public TextView textView;
-    public TextView textViewPlayer1;
-    public TextView textViewPlayer2;
 
+    private TextView textView;
+    private TextView textViewPlayer1;
+    private TextView textViewPlayer2;
+
+    public boolean player1Turn = true;
+    public int numbOfRounds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textView =  findViewById(R.id.dialogue);
+        textView.setText("Click a button to start.");
         textViewPlayer1 = findViewById(R.id.text_p1);
         textViewPlayer2 = findViewById(R.id.text_p2);
-
+        /**
+         * a for loop to store the buttons in 2 by 2 array
+         * the buttons id's are located from the resource file
+         */
         for (int m = 0; m < 3; m++) {
             for (int n = 0; n < 3; n++) {
                 String buttonID = "button_" + m + n;
@@ -42,9 +50,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 buttons[m][n].setOnClickListener(this);
             }
         }
+        /**
+         *     button to reset the game board and score
+         *    Capture button clicks
 
-        Button buttonReset = findViewById(R.id.button_reset);
-        buttonReset.setOnClickListener(new View.OnClickListener() {
+         */
+        reset = findViewById(R.id.button_reset);
+        reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetGame();
@@ -52,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
-        buttonReset.setOnClickListener(new View.OnClickListener() {
+        reset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 resetGame();
@@ -60,10 +72,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        Button SinglePlayer=  findViewById(R.id.button_single);
+        /**
+         * create an intent
+         * locate the button in xml by it's id
+         * Capture button clicks
+         */
+        gameHelp=  findViewById(R.id.button_single);
 
         // Capture button clicks
-        SinglePlayer.setOnClickListener(new View.OnClickListener() {
+        gameHelp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -79,7 +96,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-
+/**
+ * method to set an X or an O on the buttons depending on the players
+ * the players take turns
+ * the if statement takes a boolean condition to determine a Winner or a draw
+ */
     @Override
     public void onClick(View v) {
         if (!((Button) v).getText().toString().equals("")) {
@@ -101,21 +122,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (checkWin()) {
             if (player1Turn) {
                 player1Wins();
-                Toast.makeText(this, "Game Over!!", Toast.LENGTH_SHORT).show();
+
 
             } else {
                 player2Wins();
-                Toast.makeText(this, "Game Over!!", Toast.LENGTH_SHORT).show();
 
             }
         } else if (numbOfRounds == 9) {
             draw();
+
         } else {
             player1Turn = !player1Turn;
         }
 
     }
 
+    /**
+     * private boolean method to determine a winner
+     * @return
+     */
     private boolean checkWin() {
         String[][] field = new String[3][3];
 
@@ -156,37 +181,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return false;
     }
 
+    /**
+     * stores a new score for player 1
+     * displays a toast to indicate player 1 won
+     * implements method to updates player 1 points
+     * implements method to reset the game board
+     */
     private void player1Wins() {
         player1Points++;
-        Toast.makeText(this, "Player 1 Wins!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Game Over!Player 1 wins ", Toast.LENGTH_SHORT).show();
         updatePoints();
         resetBoard();
     }
-
+    /**
+     * stores a new score for player 2
+     * displays a toast to indicate player 2 won
+     * implements method to updates player 2 points
+     * implements method to reset the game board
+     */
     private void player2Wins() {
         player2Points++;
-        Toast.makeText(this, "player 2 Wins!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Game Over!Player 2 wins ", Toast.LENGTH_SHORT).show();
         updatePoints();
         resetBoard();
     }
 
+    /**
+     * displays a toast on the screen to indicate a draw
+     * implements method resetBoard
+     */
     private void draw() {
-        Toast.makeText(this, "Draw!Try Again!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Try Again! Draw! ", Toast.LENGTH_SHORT).show();
         resetBoard();
     }
 
+    /**
+     * methods to update the score and store the new score
+     */
     private void updatePoints() {
         textViewPlayer1.setText("Player 1: " + player1Points);
         textViewPlayer2.setText("Player 2: " + player2Points);
     }
 
+    /**
+     * method to reset game board
+     * displays starting instruction on a TextView
+     */
     private void resetBoard() {
         for (int m = 0; m < 3; m++) {
             for (int n = 0; n < 3; n++) {
                 buttons[m][n].setText("");
             }
 
-            textView.setText("Click a button to start.");
+
 
 
         }
@@ -194,6 +241,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         numbOfRounds = 0;
         player1Turn = true;
     }
+
+    /**
+     * method to reset the game score and board
+     */
 
     private void resetGame() {
         player1Points = 0;

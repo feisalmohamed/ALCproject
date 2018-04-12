@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">latenight</string>
-    <string name="help">gggggggggggggggggg</string>
+    <string name="app_name">tic-tac-toe</string>
 </resources>
