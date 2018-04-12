@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewPlayer2 = findViewById(R.id.text_p2);
         /**
          * a for loop to store the buttons in 2 by 2 array
-         * the buttons id's are located from the resource file
+         * the buttons id's are located from the resource files
          */
         for (int m = 0; m < 3; m++) {
             for (int n = 0; n < 3; n++) {
